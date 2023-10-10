@@ -1,57 +1,74 @@
-let play = ["rock", "paper", "scissor"];
+let draw = 0;
 let wins = 0;
 let lose = 0;
-let draws = 0;
 let i = 0;
 
-let introduction =
-  "Get Ready - five round of rock, paper, scissor about to start";
-console.log(introduction);
-
 function getComputerChoice() {
-  return play[Math.floor(Math.random() * play.length)];
+  const rspArray = ["rock", "paper", "scissor"];
+  let choice = rspArray[Math.floor(Math.random() * rspArray.length)];
+
+  return choice;
 }
 
-function getUserChoice() {
-  let hAnswer = prompt("Please choose:");
-  return hAnswer.toLowerCase();
+function getuserChoice() {
+  const hMsg = `Boi, choose between rock, paper or scissor to save your planet`;
+  let choice = prompt(hMsg);
+
+  return choice.toLowerCase();
+}
+
+function introduction() {
+  const introMsg = `Welcome my Boi, You have come to play this Rock-Paper-Scissor with me to prevent the doomsday!`;
+  console.log(introMsg);
 }
 
 function playRound() {
+  introduction();
+
+  // TODO: Make this loop to first to 5 and not 5 games
   while (i < 5) {
-    let hAnswer = getUserChoice();
+    let hAnswer = getuserChoice();
     let cAnswer = getComputerChoice();
 
     if (hAnswer !== "rock" && hAnswer !== "paper" && hAnswer !== "scissor") {
-      console.log(
-        "Please choose the correct prompt, you dumdum. Go refresh the page",
-      );
+      const eMsg = `Please choice between rock, paper or scissor my Boi`;
+      console.log(eMsg);
       break;
     }
 
-    if (hAnswer == "rock" || hAnswer == "paper" || hAnswer == "scissor") {
-      console.log(`Computer has played ${cAnswer}.`);
-    }
-
     if (hAnswer === cAnswer) {
-      draws++;
-      console.log(`It's a draw, we are keeping tabs... (${draws})`);
+      draw++;
+
+      const tMsg = `It's a draw my Boi, You save this time`;
+      console.log(tMsg);
     } else if (
       (hAnswer == "rock" && cAnswer == "scissor") ||
       (hAnswer == "paper" && cAnswer == "rock") ||
       (hAnswer == "scissor" && cAnswer == "paper")
     ) {
       wins++;
-      console.log(`You win ${wins} times. What a lucky S.O.B`);
+
+      const wMsg = `You win this time Boi, but not for long`;
+      console.log(wMsg);
     } else {
       lose++;
-      console.log(`Haha, LOSER! ${lose} times`);
+
+      const lMsg = `Muahahaha, You lost Boi. The doom is near`;
+      console.log(lMsg);
     }
     i++;
   }
-  console.log(
-    `You have won ${wins} time(s), lose ${lose} time(s), draw ${draws} times`,
-  );
+
+  if (lose < wins) {
+    const winMsg = `You have some luck Boi, you wins ${wins} times. I will be back`;
+    console.log(winMsg);
+  } else if (wins < lose) {
+    const lossMsg = `MUAHAHAHAHAHA, I wins ${lose} times. Your planet is GONE`;
+    console.log(lossMsg);
+  } else if (wins < draw && lose < draw) {
+    const drawMsg = `It's a draw my BOI, press the refresh button to continue`;
+    console.log(drawMsg);
+  }
 }
 
 playRound();
