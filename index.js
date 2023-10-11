@@ -1,6 +1,7 @@
 let draw = 0;
 let wins = 0;
 let lose = 0;
+let condition = 5;
 let i = 0;
 
 function getComputerChoice() {
@@ -25,8 +26,8 @@ function introduction() {
 function playRound() {
   introduction();
 
-  // TODO: Make this loop to first to 5 and not 5 games
-  while (i < 5) {
+  // FIX: Need to fix this condition and not use sketchy if else statement
+  while (i < 25) {
     let hAnswer = getuserChoice();
     let cAnswer = getComputerChoice();
 
@@ -48,27 +49,29 @@ function playRound() {
     ) {
       wins++;
 
-      const wMsg = `You win this time Boi, but not for long`;
+      const wMsg = `You win ${wins} times Boi, but not for long`;
       console.log(wMsg);
     } else {
       lose++;
 
-      const lMsg = `Muahahaha, You lost Boi. The doom is near`;
+      const lMsg = `Muahahaha, You lost ${lose} times Boi. The doom is near`;
       console.log(lMsg);
+    }
+
+    if (wins === 5) {
+      const winMsg = `You have some luck Boi, you wins. I will be back`;
+      console.log(winMsg);
+      break;
+    } else if (lose === 5) {
+      const lossMsg = `MUAHAHAHAHAHA, I wins. Your planet is GONE`;
+      console.log(lossMsg);
+      break;
     }
     i++;
   }
 
-  if (lose < wins) {
-    const winMsg = `You have some luck Boi, you wins ${wins} times. I will be back`;
-    console.log(winMsg);
-  } else if (wins < lose) {
-    const lossMsg = `MUAHAHAHAHAHA, I wins ${lose} times. Your planet is GONE`;
-    console.log(lossMsg);
-  } else if (wins < draw && lose < draw) {
-    const drawMsg = `It's a draw my BOI, press the refresh button to continue`;
-    console.log(drawMsg);
-  }
+  let finalMsg = `You wins ${wins} times, lose ${lose} times and draws ${draw} times.`;
+  console.log(finalMsg);
 }
 
 playRound();
