@@ -2,6 +2,9 @@
 
 Rock paper scissor game in browser
 
+# Site
+do visit the site [here](https://zakwanhisham.github.io/rock-paper-scissor/)
+
 ## TODO
 
 - [x] ~Remove bug from the rps logic~
