@@ -4,6 +4,9 @@ let lose = 0;
 let condition = 5;
 let i = 0;
 
+// Base div
+let message = document.querySelector("#message");
+
 function getComputerChoice() {
   const rspArray = ["rock", "paper", "scissor"];
   let choice = rspArray[Math.floor(Math.random() * rspArray.length)];
@@ -11,67 +14,81 @@ function getComputerChoice() {
   return choice;
 }
 
-function getuserChoice() {
-  const hMsg = `Boi, choose between rock, paper or scissor to save your planet`;
-  let choice = prompt(hMsg);
-
-  return choice.toLowerCase();
+function getUserChoice(value) {
+  return value.toLowerCase();
 }
 
-function introduction() {
-  const introMsg = `Welcome my Boi, You have come to play this Rock-Paper-Scissor with me to prevent the doomsday!`;
-  console.log(introMsg);
-}
+// Intro message
+let intro = document.createElement("div");
+intro.style.paddingBottom = "15px";
+intro.style.fontSize = "20px";
+intro.style.fontWeight = "bold";
+const introMsg = `Welcome my Boi, You have come to play this Rock-Paper-Scissor with me to prevent the doomsday!`;
+intro.textContent = introMsg;
+message.appendChild(intro);
 
-function playRound() {
-  introduction();
+// Show user choice
+let userChoice = document.createElement("p");
+userChoice.style.marginTop = "0px";
+userChoice.style.marginBottom = "10px";
+userChoice.style.fontSize = "15px";
+message.appendChild(userChoice);
 
-  // FIX: Need to fix this condition and not use sketchy if else statement
-  while (i < 25) {
-    let hAnswer = getuserChoice();
+// Show final result
+let result = document.createElement("p");
+
+// User choice button
+const rpsArray = ["Rock", "Paper", "Scissor"];
+for (i = 0; i < rpsArray.length; i++) {
+  let button = document.createElement("input");
+  button.setAttribute("id", rpsArray[i]);
+  button.setAttribute("type", "button");
+  button.setAttribute("name", rpsArray[i]);
+  button.setAttribute("value", rpsArray[i]);
+  button.style.marginRight = "5px";
+  button.style.marginLeft = "5px";
+  button.textContent = rpsArray[i];
+  button.addEventListener("click", () => {
+    let hAnswer = getUserChoice(button.value);
     let cAnswer = getComputerChoice();
-
-    if (hAnswer !== "rock" && hAnswer !== "paper" && hAnswer !== "scissor") {
-      const eMsg = `Please choice between rock, paper or scissor my Boi`;
-      console.log(eMsg);
-      break;
-    }
 
     if (hAnswer === cAnswer) {
       draw++;
-
       const tMsg = `It's a draw my Boi, You save this time`;
-      console.log(tMsg);
+      userChoice.textContent = tMsg;
     } else if (
       (hAnswer == "rock" && cAnswer == "scissor") ||
       (hAnswer == "paper" && cAnswer == "rock") ||
       (hAnswer == "scissor" && cAnswer == "paper")
     ) {
       wins++;
-
       const wMsg = `You win ${wins} times Boi, but not for long`;
-      console.log(wMsg);
+      userChoice.textContent = wMsg;
     } else {
       lose++;
-
       const lMsg = `Muahahaha, You lost ${lose} times Boi. The doom is near`;
-      console.log(lMsg);
+      userChoice.textContent = lMsg;
     }
 
     if (wins === 5) {
       const winMsg = `You have some luck Boi, you wins. I will be back`;
-      console.log(winMsg);
-      break;
+      result.textContent = winMsg;
     } else if (lose === 5) {
       const lossMsg = `MUAHAHAHAHAHA, I wins. Your planet is GONE`;
-      console.log(lossMsg);
-      break;
+      result.textContent = lossMsg;
+    } else if (wins === 6 || lose === 6) {
+      let finale = document.createElement("div");
+      const finaleMsg = `Thank you for playing Rock Paper Scissor. I'll see you again`;
+      finale.textContent = finaleMsg;
+      message.appendChild(finale);
     }
-    i++;
-  }
 
-  let finalMsg = `You wins ${wins} times, lose ${lose} times and draws ${draw} times.`;
-  console.log(finalMsg);
+    // let score = document.createElement("p");
+    // const scoreMsg = `Wins: ${wins} | Lose: ${lose} | Draw: ${draw}`;
+    // score.textContent = scoreMsg;
+    // message.appendChild(score);
+  });
+  message.appendChild(button);
+
+  message.appendChild(result);
 }
-
-playRound();
