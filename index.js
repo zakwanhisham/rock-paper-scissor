@@ -23,19 +23,22 @@ let intro = document.createElement("div");
 intro.style.paddingBottom = "15px";
 intro.style.fontSize = "20px";
 intro.style.fontWeight = "bold";
-const introMsg = `Welcome my Boi, You have come to play this Rock-Paper-Scissor with me to prevent the doomsday!`;
+const introMsg = `Welcome my Boi, You have come to play this Rock-Paper-Scissor with me to prevent the doomsday! First to 5 wins`;
 intro.textContent = introMsg;
 message.appendChild(intro);
 
 // Show user choice
-let userChoice = document.createElement("p");
-userChoice.style.marginTop = "0px";
-userChoice.style.marginBottom = "10px";
-userChoice.style.fontSize = "15px";
-message.appendChild(userChoice);
+let text = document.createElement("p");
+text.style.marginTop = "0px";
+text.style.marginBottom = "10px";
+text.style.fontSize = "15px";
+message.appendChild(text);
 
 // Show final result
 let result = document.createElement("p");
+
+// Show score
+let score = document.createElement("p");
 
 // User choice button
 const rpsArray = ["Rock", "Paper", "Scissor"];
@@ -48,6 +51,7 @@ for (i = 0; i < rpsArray.length; i++) {
   button.style.marginRight = "5px";
   button.style.marginLeft = "5px";
   button.textContent = rpsArray[i];
+
   button.addEventListener("click", () => {
     let hAnswer = getUserChoice(button.value);
     let cAnswer = getComputerChoice();
@@ -55,19 +59,19 @@ for (i = 0; i < rpsArray.length; i++) {
     if (hAnswer === cAnswer) {
       draw++;
       const tMsg = `It's a draw my Boi, You save this time`;
-      userChoice.textContent = tMsg;
+      text.textContent = tMsg;
     } else if (
       (hAnswer == "rock" && cAnswer == "scissor") ||
       (hAnswer == "paper" && cAnswer == "rock") ||
       (hAnswer == "scissor" && cAnswer == "paper")
     ) {
       wins++;
-      const wMsg = `You win ${wins} times Boi, but not for long`;
-      userChoice.textContent = wMsg;
+      const wMsg = `You win Boi, but not for long`;
+      text.textContent = wMsg;
     } else {
       lose++;
-      const lMsg = `Muahahaha, You lost ${lose} times Boi. The doom is near`;
-      userChoice.textContent = lMsg;
+      const lMsg = `Muahahaha, You lost Boi. The doom is near`;
+      text.textContent = lMsg;
     }
 
     if (wins === 5) {
@@ -76,19 +80,32 @@ for (i = 0; i < rpsArray.length; i++) {
     } else if (lose === 5) {
       const lossMsg = `MUAHAHAHAHAHA, I wins. Your planet is GONE`;
       result.textContent = lossMsg;
-    } else if (wins === 6 || lose === 6) {
+    } else if (wins == 6 || lose == 6) {
       let finale = document.createElement("div");
       const finaleMsg = `Thank you for playing Rock Paper Scissor. I'll see you again`;
       finale.textContent = finaleMsg;
       message.appendChild(finale);
     }
 
-    // let score = document.createElement("p");
-    // const scoreMsg = `Wins: ${wins} | Lose: ${lose} | Draw: ${draw}`;
-    // score.textContent = scoreMsg;
-    // message.appendChild(score);
+    const scoreMsg = `Wins: ${wins} | Lose: ${lose} | Draw: ${draw}`;
+    score.textContent = scoreMsg;
   });
-  message.appendChild(button);
 
+  message.appendChild(button);
+  message.appendChild(score);
   message.appendChild(result);
 }
+
+// TODO: Add a reset button to the game
+// Reset button
+// let reset = document.createElement("input");
+// reset.setAttribute("id", "Reset");
+// reset.setAttribute("type", "button");
+// reset.setAttribute("name", "Reset");
+// reset.setAttribute("value", "Reset");
+// reset.addEventListener("click", () => {
+//   wins = 0;
+//   loss = 0;
+//   draw = 0;
+// });
+// message.appendChild(reset);
